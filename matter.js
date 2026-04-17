@@ -29,11 +29,11 @@ var render = Render.create({
     }
 });
 
+
 var matterElems = document.querySelectorAll('.dm-matter-elem');
 var matterCircle = document.querySelectorAll('.dm-matter-elem-circle');
 var matterPill = document.querySelectorAll('.dm-matter-elem-pill');
-var path = document.querySelector('.dm-matter-elem-svg');
-var vertices = Matter.Svg.pathToVertices(path, 30);
+
 
 // Function to create rectangles for dm-matter-elem elements
 function createRectangles() {
@@ -130,8 +130,6 @@ function createPills() {
 var elemBodies = createRectangles();
 var elemCircles = createCircles();
 var elemPills = createPills();
-var body = Bodies.fromVertices(200, 200, vertices, {restitution: 0.5}, true);
-Composite.add(engine.world, body);
 
 
 // Function to create static bodies for boundaries

@@ -72,6 +72,8 @@ html.lenis {
 
 body {
   font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
   color: var(--neutral-black);
   overflow-x: hidden;
   line-height: 1.4;
@@ -79,7 +81,6 @@ body {
   min-height: 100vh;
   background: radial-gradient(125% 125% at 50% 90%, #fff 40%, #7BB2FF 100%);
   background-attachment: fixed;
-
 }
 
 a {
@@ -148,16 +149,20 @@ button {
   margin: 0 auto;
   position: absolute;
   padding: 0 var(--pd-72);
+  display: flex;
+  justify-content: center;
 }
 
 .app-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 80px;
+  gap: 96px;
   position: relative;
   overflow: visible;
   z-index: 1;   
+  max-width: 1728px;
+  min-width: 700px;
 }
 
 /* ===== Background Decorations ===== */
@@ -494,14 +499,18 @@ button {
   white-space: nowrap;
 }
 
+.brand-container {
+  width: 100vw;
+  background: var(--primary-light-blue);
+}
+
 .brand-logos {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--gap-64);
-  background: var(--primary-light-blue);
   height: 96px;
-  width: max-content;
+  width: 100%;
   animation: scrollLogo 20s linear infinite;
   will-change: transform;
 }
@@ -881,7 +890,6 @@ button {
   justify-content: space-between;
   gap: var(--gap-16);
   padding: var(--pd-32);
-  margin: 72px 0 0 0;
   background: var(--neutral-white);
   border-radius: 6px var(--radius-lg) 6px var(--radius-lg);
   box-shadow: var(--shadow-card);
@@ -893,7 +901,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--pd-8);
+  padding: 6px;
   background: var(--gradient-blue-solid);
   border-radius: 6px var(--radius-lg) 6px var(--radius-lg);
   box-shadow: var(--shadow-card);
@@ -903,7 +911,7 @@ button {
 .container-recomendation {
   display: flex;
   align-items: center; 
-  padding: var(--pd-8); 
+  padding: 6px; 
 }
 
 .title-recomendation {
@@ -1192,6 +1200,8 @@ button {
   transform: rotate(45deg);
 }
 
+/* INPIRATION */
+
 /* ===== SEO Section ===== */
 .seo-section {
   display: flex;
@@ -1246,12 +1256,19 @@ button {
 }
 
 .dm-matter-elem-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   width: 80px;
   height: 80px;
-  background: #4ecdc4;
   border-radius: 50%;
   pointer-events: none;
+}
+
+.dm-matter-elem-circle img{
+  width: 90%;
+  height: auto;
 }
 
 .dm-matter-elem-pill {
