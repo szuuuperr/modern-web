@@ -57,6 +57,11 @@
   padding: 0;
 }
 
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 html.lenis {
   height: auto;
 }
@@ -1236,6 +1241,7 @@ button {
   backdrop-filter: blur(10px);
   box-shadow: inset 0px 0px 4px rgb(0, 0, 0, 0.3);
   border-radius: 12px var(--radius-xl) 12px var(--radius-xl);
+  overflow: hidden; /* clip absolutely-positioned dm-matter elements */
 }
 
 .dm-matter-elem, .dm-matter-elem-circle, .dm-matter-elem-pill {
@@ -1657,6 +1663,405 @@ button {
 
 .flow-card:nth-child(5) {
   transition-delay: 0.48s;
+}
+
+/* ==========================================================================
+   RESPONSIVE / MEDIA QUERIES
+   Desktop-first: base styles target large screens, overrides scale down.
+   Breakpoints: 1200px, 1024px, 768px (tablet), 480px (mobile)
+   ========================================================================== */
+
+/* ===== ≤1200px : large laptops ===== */
+@media (max-width: 1200px) {
+  .page-wrapper {
+    padding: 0 var(--pd-32);
+  }
+
+  .app-container {
+    gap: 80px;
+  }
+
+  .hero-title {
+    font-size: 76px;
+    letter-spacing: -3.8px;
+  }
+
+  .hero-title .bisnis-mu,
+  .hero-title .elegan {
+    letter-spacing: -6px;
+  }
+
+  .solving-title {
+    font-size: 44px;
+  }
+
+  .solving-row-title {
+    width: 360px;
+  }
+
+  .solving-row-title h3 {
+    font-size: 30px;
+  }
+
+  .solving-row .solving-icon,
+  .solving-cta-row .solving-icon {
+    width: 140px;
+    height: auto;
+  }
+
+  .footer-left {
+    width: 380px;
+  }
+}
+
+/* ===== ≤1024px : tablets landscape / small laptops ===== */
+@media (max-width: 1024px) {
+  .app-container {
+    gap: 64px;
+    min-width: 0;
+  }
+
+  .navbar {
+    width: 92%;
+  }
+
+  .hero-section {
+    padding: var(--pd-32) 0;
+  }
+
+  .hero-title {
+    font-size: 60px;
+    letter-spacing: -3px;
+  }
+
+  .hero-title .bisnis-mu,
+  .hero-title .elegan {
+    letter-spacing: -4px;
+  }
+
+  .brand-title .line {
+    width: 80px;
+  }
+
+  .problem-title,
+  .flow-title h2,
+  .price-title,
+  .inspiration-title,
+  .seo-title,
+  .faq-title,
+  .faq-cta-title {
+    font-size: 32px;
+  }
+
+  .solving-title {
+    font-size: 38px;
+  }
+
+  /* Solving rows: let title/desc share the space more evenly */
+  .solving-row {
+    flex-wrap: wrap;
+  }
+
+  .solving-row-title {
+    width: auto;
+    flex: 1 1 260px;
+  }
+
+  .solving-row-desc {
+    flex: 1 1 100%;
+    padding: var(--pd-8) var(--pd-16);
+  }
+
+  /* Inspiration: 3 → 2 columns */
+  .inspiration-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Footer top wraps: links move below the intro block */
+  .footer-left {
+    width: 100%;
+  }
+}
+
+/* ===== ≤768px : tablets portrait ===== */
+@media (max-width: 768px) {
+  .page-wrapper {
+    padding: 0 var(--pd-16);
+  }
+
+  .app-container {
+    gap: 56px;
+    width: 100%;
+  }
+
+  /* Navbar: drop the centered links, keep logo + CTA */
+  .navbar {
+    width: 100%;
+    padding: 8px 12px;
+  }
+
+  .navbar-center {
+    display: none;
+  }
+
+  .language-switcher {
+    display: none;
+  }
+
+  /* Hero */
+  .hero-title {
+    font-size: 44px;
+    letter-spacing: -2px;
+  }
+
+  .hero-title .bisnis-mu,
+  .hero-title .elegan {
+    letter-spacing: -2.5px;
+  }
+
+  .hero-title br {
+    display: none;
+  }
+
+  .hero-description {
+    font-size: 15px;
+  }
+
+  /* Brand marquee a touch smaller */
+  .brand-logos {
+    height: 72px;
+  }
+
+  .brand-logos img {
+    max-height: 32px;
+    margin-right: var(--gap-32);
+  }
+
+  /* Stack all card rows into a single column */
+  .problem-cards,
+  .price-cards {
+    flex-direction: column;
+  }
+
+  .flow-cards {
+    flex-wrap: wrap;
+    gap: var(--gap-24);
+  }
+
+  .flow-card {
+    flex: 1 1 40%;
+    min-width: 140px;
+  }
+
+  /* Solving rows: full vertical stack */
+  .solving-row,
+  .solving-cta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-8);
+    padding: var(--pd-16);
+  }
+
+  .solving-row .solving-icon,
+  .solving-cta-row .solving-icon {
+    display: none;
+  }
+
+  /* Reset the ≤1024 flex-basis: in a column it becomes vertical height and
+     leaves a huge empty gap between title and description. */
+  .solving-row-title,
+  .solving-row-desc {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 0;
+  }
+
+  .solving-row-title h3 {
+    font-size: 26px;
+  }
+
+  .solving-cta-row {
+    align-items: center;
+  }
+
+  .solving-cta-row .solving-row-desc {
+    width: auto;
+  }
+
+  /* Inspiration: 2 → 1 column */
+  .inspiration-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* FAQ: 2 → 1 column */
+  .faq-grid {
+    column-count: 1;
+  }
+
+  .faq-question {
+    padding: var(--pd-16) var(--pd-16);
+  }
+
+  .faq-answer-content {
+    padding: 0 var(--pd-16) var(--pd-16);
+  }
+
+  /* Footer: stack intro over the link columns */
+  .footer {
+    padding: var(--gap-32) var(--pd-32);
+  }
+
+  .footer-top {
+    flex-direction: column;
+    gap: var(--gap-24);
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: var(--gap-16);
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Brand + flow titles use white-space: nowrap in the base styles, which
+     forces horizontal overflow on narrow screens — let them wrap. */
+  .brand-title p,
+  .flow-title h2 {
+    white-space: normal;
+  }
+
+  /* SEO physics scene: shorter on small screens */
+  .scene {
+    height: 400px;
+  }
+
+  /* Let touches pass through the physics canvas so the page scrolls normally
+     on mobile (drag interaction stays enabled on desktop). */
+  .scene canvas {
+    pointer-events: none;
+  }
+
+  /* Shrink the floating keyword bodies — matter.js reads offsetWidth/Height,
+     so smaller elements = smaller physics bodies that fit the mobile scene
+     and leave empty space to scroll through. */
+  .dm-matter-elem {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .dm-matter-elem-pill {
+    padding: 6px 16px;
+    font-size: 12px;
+  }
+
+  .dm-matter-elem-circle {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* ===== ≤480px : phones ===== */
+@media (max-width: 480px) {
+  .page-wrapper {
+    padding: 0 var(--pd-12);
+  }
+
+  .app-container {
+    gap: 48px;
+  }
+
+  /* Hide the CTA text-swap animation label so it never overflows */
+  .navbar-logo img {
+    height: 15px;
+  }
+
+  .hero-card p {
+    font-size: 13px;
+  }
+
+  .hero-title {
+    font-size: 34px;
+    letter-spacing: -1.2px;
+  }
+
+  .hero-title .bisnis-mu,
+  .hero-title .elegan {
+    letter-spacing: -1.5px;
+  }
+
+  .problem-title,
+  .flow-title h2,
+  .price-title,
+  .inspiration-title,
+  .seo-title,
+  .faq-title,
+  .faq-cta-title {
+    font-size: 26px;
+  }
+
+  .solving-title {
+    font-size: 30px;
+  }
+
+  /* Flow becomes single column on phones */
+  .flow-card {
+    flex: 1 1 100%;
+  }
+
+  /* Brand title lines take too much room on tiny screens */
+  .brand-title .line {
+    width: 40px;
+  }
+
+  .brand-title p {
+    font-size: 14px;
+    white-space: normal;
+  }
+
+  /* Flow title wraps (logo below text) */
+  .flow-title {
+    flex-direction: column;
+    gap: var(--gap-8);
+  }
+
+  .flow-title h2 {
+    white-space: normal;
+  }
+
+  .price-card-name {
+    font-size: 24px;
+  }
+
+  .price-card-price .current-price {
+    font-size: 32px;
+  }
+
+  .faq-cta-section {
+    padding: var(--pd-32) var(--pd-16);
+  }
+
+  .scene {
+    height: 340px;
+  }
+
+  .dm-matter-elem,
+  .dm-matter-elem-pill {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+
+  .dm-matter-elem-circle {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Keep the floating action button clear of screen edges */
+  .fab-button {
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+  }
 }
 
 /* Accessibility: show everything instantly, no motion */
