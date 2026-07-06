@@ -502,16 +502,15 @@ button {
 .brand-container {
   width: 100vw;
   background: var(--primary-light-blue);
+  overflow: hidden;
 }
 
 .brand-logos {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: var(--gap-64);
+  width: max-content;
   height: 96px;
-  width: 100%;
-  animation: scrollLogo 20s linear infinite;
+  animation: scrollLogo 30s linear infinite;
   will-change: transform;
 }
 
@@ -520,6 +519,7 @@ button {
   max-height: 42px;
   width: auto;
   flex-shrink: 0;
+  margin-right: var(--gap-64);
   filter: brightness(0) invert(1);
   opacity: 0.8;
 }
@@ -530,7 +530,7 @@ button {
   }
 
   to {
-    transform: translateX(-20%);
+    transform: translateX(-50%);
   }
 }
 
@@ -1556,21 +1556,9 @@ button {
 
 /* ===== Scroll-Driven Fade-In Animations ===== */
 
-/* Keyframes */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    translate: 0 3rem;
-  }
-}
-
-@keyframes fade-in-scale {
-  from {
-    opacity: 0;
-    scale: 0.95;
-    translate: 0 2rem;
-  }
-}
+/* Reveal-on-scroll, driven by IntersectionObserver (works in every browser).
+   Elements start hidden + blurred, then transition to visible when .in-view
+   is added by script.js. */
 
 /* Text elements: titles, subtitles, descriptions, buttons */
 .brand-title,
@@ -1586,17 +1574,18 @@ button {
 .seo-title,
 .seo-subtitle,
 .faq-title,
-.faq-subtitle {
-  animation: fade-in-up ease-in both;
-  animation-timeline: view();
-  animation-range: entry 0% contain 50%;
+.faq-subtitle,
+.price-card-recomendation {
+  opacity: 0;
+  translate: 0 3rem;
+  filter: blur(12px);
+  transition:
+    opacity 0.7s ease-out,
+    translate 0.7s ease-out,
+    filter 0.7s ease-out;
+  will-change: opacity, translate, filter;
 }
 
-.price-card-recomendation {
-  animation: fade-in-up ease-in both;
-  animation-timeline: view();
-  animation-range: entry 0% contain -100%;
-}
 /* Cards & containers: scale + fade */
 .problem-card,
 .solving-container,
@@ -1606,12 +1595,71 @@ button {
 .seo-tags,
 .faq-item,
 .faq-cta-section {
-  animation: fade-in-scale ease-in both;
-  animation-timeline: view(30%);
-  animation-range: entry 0% entry 70%;
+  opacity: 0;
+  translate: 0 2.5rem;
+  scale: 0.92;
+  filter: blur(16px);
+  transition:
+    opacity 0.75s ease-out,
+    translate 0.75s ease-out,
+    scale 0.75s ease-out,
+    filter 0.75s ease-out;
+  will-change: opacity, translate, scale, filter;
 }
 
-/* Accessibility: disable all scroll animations for reduced motion */
+/* Visible state */
+.brand-title.in-view,
+.problem-title.in-view,
+.solving-title.in-view,
+.flow-title.in-view,
+.flow-subtitle.in-view,
+.price-title.in-view,
+.price-subtitle.in-view,
+.inspiration-title.in-view,
+.inspiration-subtitle.in-view,
+.inspiration-more.in-view,
+.seo-title.in-view,
+.seo-subtitle.in-view,
+.faq-title.in-view,
+.faq-subtitle.in-view,
+.price-card-recomendation.in-view,
+.problem-card.in-view,
+.solving-container.in-view,
+.flow-card.in-view,
+.price-card.in-view,
+.inspiration-card.in-view,
+.seo-tags.in-view,
+.faq-item.in-view,
+.faq-cta-section.in-view {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+  filter: blur(0);
+}
+
+/* Staggered cascade: cards in the same row reveal one after another */
+.problem-card:nth-child(2),
+.flow-card:nth-child(2),
+.inspiration-card:nth-child(2),
+.price-card:nth-child(3) {
+  transition-delay: 0.12s;
+}
+
+.problem-card:nth-child(3),
+.flow-card:nth-child(3),
+.inspiration-card:nth-child(3) {
+  transition-delay: 0.24s;
+}
+
+.flow-card:nth-child(4) {
+  transition-delay: 0.36s;
+}
+
+.flow-card:nth-child(5) {
+  transition-delay: 0.48s;
+}
+
+/* Accessibility: show everything instantly, no motion */
 @media (prefers-reduced-motion: reduce) {
 
   .hero-title,
@@ -1628,6 +1676,7 @@ button {
   .price-title,
   .price-subtitle,
   .price-card,
+  .price-card-recomendation,
   .inspiration-title,
   .inspiration-subtitle,
   .inspiration-card,
@@ -1643,6 +1692,11 @@ button {
   .faq-cta-button,
   .footer-top,
   .footer-bottom {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+    filter: none;
+    transition: none;
     animation: none;
   }
 }

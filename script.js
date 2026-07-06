@@ -57,6 +57,37 @@ window.addEventListener("scroll", () => {
   lastScroll = currentScroll;
 });
 
+// ini untuk animasi reveal saat scroll (blur + fade + slide)
+const revealSelector = [
+  '.brand-title', '.problem-title', '.solving-title', '.flow-title',
+  '.flow-subtitle', '.price-title', '.price-subtitle', '.inspiration-title',
+  '.inspiration-subtitle', '.inspiration-more', '.seo-title', '.seo-subtitle',
+  '.faq-title', '.faq-subtitle', '.price-card-recomendation', '.problem-card',
+  '.solving-container', '.flow-card', '.price-card', '.inspiration-card',
+  '.seo-tags', '.faq-item', '.faq-cta-section'
+].join(',');
+
+const revealEls = document.querySelectorAll(revealSelector);
+
+if (window.IntersectionObserver) {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -10% 0px'
+  });
+
+  revealEls.forEach(el => revealObserver.observe(el));
+} else {
+  // Fallback: kalau tidak didukung, tampilkan semua langsung
+  revealEls.forEach(el => el.classList.add('in-view'));
+}
+
 // ini untuk lenis
 const lenis = new Lenis({
   lerp: 0.1, 
